@@ -113,31 +113,30 @@ const SignUp = () => {
             <input
               type="text"
               className={styles.inputs}
-              name="input"
-              autoComplete="mail"
-              value={formValues.input}
+              name="name"
+              value={formValues.name}
               onChange={handleInputChange}
             />
           </div>
           <div>
             <p className={styles.label}>Mobile Number</p>
             <input
-              type="password"
+              type="number"
               className={styles.inputs}
-              name="password"
+              name="mobile"
               autoComplete="current-password"
-              value={formValues.password}
+              value={formValues.mobile}
               onChange={handleInputChange}
             />
           </div>
           <div>
             <p className={styles.label}>Email Id</p>
             <input
-              type="password"
+              type="email"
               className={styles.inputs}
-              name="password"
+              name="email"
               autoComplete="current-password"
-              value={formValues.password}
+              value={formValues.email}
               onChange={handleInputChange}
             />
           </div>
