@@ -234,6 +234,7 @@ const Cart = () => {
             })}
           </div>
           <div className="mob-cart-sub-details">
+            <p>Convenience Fee:45</p>
             <h3>Total amount :₹ {final_amount}</h3>
             <button className="buy-now" onClick={placeOrder}>
               PLACE ORDER
