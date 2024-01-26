@@ -216,7 +216,7 @@ const SignUp = () => {
           type="password"
           name="password"
           autoComplete="current-password"
-          value={formValues.pass}
+          value={formValues.password}
         />
         </div>
       <p>
