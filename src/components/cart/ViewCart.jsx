@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import {  useNavigate } from "react-router-dom";
 import heading from "../../assets/heading.png";
 import "./ViewCart.css";
+import "remixicon/fonts/remixicon.css";
+
 import Footer from "../footer/Footer";
 import Navigator from "../navigate/Navigate";
 import { useMediaQuery } from "react-responsive";
@@ -182,7 +184,8 @@ const ViewCart = () => {
               }}
             >
               <br></br>
-              <i className="ri-arrow-left-line"></i>
+              <i className="ri-arrow-left-line" style={{ fontSize: '24px', color: 'black' }}></i>
+
             </div>
             <div className="mobile-cart-view">
               <div>

@@ -202,7 +202,7 @@ const Cart = () => {
             }}
           >
             <br />
-            <i className="ri-arrow-left-line"></i>
+            <i className="ri-arrow-left-line" style={{ fontSize: '24px', color: 'black' }}></i>
           </div>
           <div>
             {data.map((item, index) => {

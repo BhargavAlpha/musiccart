@@ -39,9 +39,7 @@ const Checkout = (props) => {
             <b>Home/Checkout</b>
           </p>
         </div>
-      
-    
-                      
+
         <button  className="back-button"
          onClick={() => {
             navigate("/");
@@ -51,7 +49,7 @@ const Checkout = (props) => {
         </button>
         <div className='back' onClick={() => { navigate('/') }} >
             <br></br>
-                <i className="ri-arrow-left-line"></i>
+            <i className="ri-arrow-left-line" style={{ fontSize: '24px', color: 'black' }}></i>
         </div>
         <h3 className="chk-out"> <br></br> Checkout  </h3>
         
