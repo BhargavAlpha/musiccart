@@ -12,9 +12,16 @@ import mobimg from "../../assets/music-logo.png";
 const Login = () => {
   const nav = useNavigate();
 
-  const showToastSuccessMessage = () => {
-    toast.success("Logged in Successfully!", {
-      position: toast.POSITION.TOP_CENTER,
+  const showToastSuccessMessage = (message) => {
+    console.log("Toast called");
+    toast.success(message, {
+      position: 'top-right',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
     });
   };
 
@@ -42,7 +49,9 @@ const Login = () => {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("user", input);
         console.log(response.data);
+        showToastSuccessMessage("Login Succcesful!");
         nav("/");
+        
       })
       .catch((err) => {
         showToastFailureMessage();
@@ -56,6 +65,7 @@ const Login = () => {
   const isSmallScreen = useMediaQuery({ query: "(max-width: 700px)" });
   return (
     <>
+    <ToastContainer />
     {isSmallScreen ? ( 
       <div className={styles.mobContainer}>
         <div className={styles.mobCenterContainer}>
@@ -162,7 +172,7 @@ const Login = () => {
         <Footer />
       </div>
     )}
-     <ToastContainer />
+     
   </>
   );
 };

@@ -1,5 +1,7 @@
 import './App.css';
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
 import ServerStatus from './components/serverStatus/ServerStatus';
 import NotFound from './components/Error/NotFound';
 import Home from "./pages/Home/Home";
@@ -21,7 +23,9 @@ function App() {
   const isDesktopOrLaptop = useMediaQuery({query: '(min-width: 1224px)'})
   return (
     <MyContext.Provider value={{loggedIn , setLoggedIn,currentPage, setCurrentpage}}  >
+      
       <Router>
+      <ToastContainer />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={ <Login/> } />

@@ -16,10 +16,14 @@ const ViewCart = () => {
   const [current, setCurrent] = useState(
     JSON.parse(localStorage.getItem("current"))
   );
+  const checkImg = JSON.parse(localStorage.getItem("check-img"));
+  const checkPrice = JSON.parse(localStorage.getItem("check-price"));
+    const checkColor = JSON.parse(localStorage.getItem("check-color"));
+    const checkName = JSON.parse(localStorage.getItem("check-name"));
   const [totalItems, setTotalItems] = useState(1);
   console.log(current);
   const checkOut = () => {
-    localStorage.setItem("total", totalItems * current.price + 45);
+    localStorage.setItem("total", totalItems * checkPrice + 45);
     navigate("/checkout");
   };
   return (
@@ -65,12 +69,12 @@ const ViewCart = () => {
             <div className="cart-product-details">
               <div>
                 <div className="sita">
-                  <img src={current.main_image} alt="" />
+                  <img src={checkImg} alt="" />
                   <table className="tabu">
                     <tbody>
                       <tr>
                         <td>
-                          <h3>{current.name}</h3>
+                          <h3>{checkName}</h3>
                           <br></br>
                         </td>
                         <td>
@@ -96,12 +100,12 @@ const ViewCart = () => {
                       <tr>
                         <td>
                           {" "}
-                          <p>Colour : {current.color}</p>
+                          <p>Colour : {checkColor}</p>
                           <br></br>
-                          <p>{current.available}</p>
+                          <p>{"Yes"}</p>
                         </td>
                         <td>
-                          <p>₹ {current.price}</p>
+                          <p>₹ {checkPrice}</p>
                         </td>
                         <td>
                           <select
@@ -114,7 +118,7 @@ const ViewCart = () => {
                           </select>
                         </td>
                         <td>
-                          <p>{totalItems * current.price}</p>
+                          <p>{totalItems * checkPrice}</p>
                         </td>
                       </tr>
                     </tbody>
@@ -122,7 +126,7 @@ const ViewCart = () => {
                 </div>
                 <div className="cost">
                   <p>{totalItems}Item </p>
-                  <p> {current.price} </p>
+                  <p> {checkPrice} </p>
                 </div>
               </div>
 
@@ -138,7 +142,7 @@ const ViewCart = () => {
                   <tbody>
                     <tr>
                       <td>Total MRP</td>
-                      <td>₹{totalItems * current.price}</td>
+                      <td>₹{totalItems * checkPrice}</td>
                     </tr>
                     <tr>
                       <td>Discount on MRP</td>
@@ -154,7 +158,7 @@ const ViewCart = () => {
                       <td>
                         <b>Total Amount</b>
                       </td>
-                      <td>₹ {totalItems * current.price + 45}</td>
+                      <td>₹ {totalItems * checkPrice + 45}</td>
                     </tr>
                     <tr>
                       {" "}
@@ -191,27 +195,27 @@ const ViewCart = () => {
               <div>
                 <img
                   className="mobile-cart-img"
-                  src={current.main_image}
+                  src={checkImg}
                   alt=""
                 />
               </div>
 
               <div className="mob-cart-details">
                 <div>
-                  <h3> {current.name}</h3>
-                  <h3> {current.price}</h3>
-                  <p>color : {current.color}</p>
-                  <p> {current.available}</p>
+                  <h3> {}</h3>
+                  <h3> {checkPrice}</h3>
+                  <p>color : {checkColor}</p>
+                  <p> {"Yes"}</p>
                   <p>Convienience fee : 45</p>
                 </div>
                 <div>
-                  <b> Total :₹ {totalItems * current.price + 45} </b>
+                  <b> Total :₹ {totalItems * checkPrice + 45} </b>
                 </div>
               </div>
             </div>
             <hr></hr>
             <div className="mob-cart-sub-details">
-              <h3>Total amount :₹ {totalItems * current.price + 45}</h3>
+              <h3>Total amount :₹ {totalItems * checkPrice + 45}</h3>
               <button
                 className="buy-now"
                 onClick={() => {

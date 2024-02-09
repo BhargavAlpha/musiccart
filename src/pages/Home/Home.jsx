@@ -9,6 +9,7 @@ import { useContext } from "react";
 import Body from "../../components/body/Body";
 import BodyMobile from "../../components/body/BodyMobile";
 import Footer from "../../components/footer/Footer";
+import { ToastContainer } from "react-toastify";
 
 const Home = () => {
   
@@ -25,6 +26,7 @@ const Home = () => {
 
   return (
     <div className="mainHome">
+      <ToastContainer/>
       {isDesktopOrLaptop ?<Body />: <BodyMobile/> }
       {isDesktopOrLaptop ?<Footer />: "" }
     </div>

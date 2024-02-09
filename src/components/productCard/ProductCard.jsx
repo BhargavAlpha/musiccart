@@ -29,6 +29,7 @@ const ProductCard = () => {
                 localStorage.setItem("check-img",JSON.stringify(response.data.main_image));
           localStorage.setItem("check-color",JSON.stringify(response.data.color));
           localStorage.setItem("check-name",JSON.stringify(response.data.name));
+          localStorage.setItem("check-price",JSON.stringify(response.data.price));
             })
             .catch((err) => { console.log("error fetching product card ..", err) })
     }, [])

@@ -11,93 +11,104 @@ import Footer from "../../components/footer/Footer";
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const showToastSuccessMessage = () => {
-    toast.success("Registered Successfully!", {
+  const showToastSuccess = (message) => {
+    toast.success(message, {
+      position: 'top-right',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
     });
   };
-
-  const showToastFailureMessage = (message = "Fill all fields properly") => {
+  const showToastError = (message) => {
     toast.error(message, {
-
+      position: 'top-right',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
     });
   };
 
-  const [formValues, setFromValues] = useState({
+  
+
+  const [formValues, setFormValues] = useState({
     name: "",
     mobile: "",
     email: "",
     password: "",
   });
 
-  const [mailError, setMailError] = useState(false);
-  const [passError, setPassError] = useState(false);
+
 
   const handleInputChange = (e) => {
-    setFromValues({ ...formValues, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormValues(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
   };
 
-  let valid = true;
 
-  const handleSubmit = () => {
-    console.log(formValues);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { name, mobile, email, password } = formValues;
 
-    if (!(formValues.email.trim().length > 0)) {
-      setMailError(true);
-      valid = false;
-    } else {
-      setMailError(false);
+    if (!name.trim() || !mobile.trim() || !email.trim() || !password.trim()) {
+      showToastError('Please fill out all fields.');
+      return;
     }
 
-    if (!(formValues.password.trim().length > 0)) {
-      setPassError(true);
-      valid = false;
-    } else {
-      setPassError(false);
+    // Validate email format (you can use a more sophisticated validation)
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      showToastError('Please enter a valid email address.');
+      return;
     }
 
-    console.log(valid);
-
-    if (valid) {
-      console.log("toast");
-      axios
-        .post(`https://musicart-80cn.onrender.com/register`, {
-          name: formValues.name,
-          mobile: formValues.mobile,
-          email: formValues.email,
-          password: formValues.password,
-        })
-        .then((response) => {
-          console.log(response.data);
-          if (response.data.name) {
-            localStorage.setItem("token", response.data.token);
-            localStorage.setItem("user", formValues.email);
-            console.log(response.data);
-            showToastSuccessMessage();
-            navigate("/");
-          } else if (response.data.error) {
-            // Check if the error message indicates that the user already exists
-            if (response.data.error.includes("duplicate key")) {
-              showToastFailureMessage(
-                "User with the same email already exists!"
-              );
-            } else {
-              showToastFailureMessage();
-            }
-          } else {
-            showToastFailureMessage();
-          }
-        })
-        .catch((error) => {
-          showToastFailureMessage();
-        });
-    } else {
-      showToastFailureMessage();
+    // Password length validation (you can customize this)
+    if (password.length < 6) {
+      showToastError('Password must be at least 6 characters long.');
+      return;
     }
+
+    // If all validations pass, make API call
+    axios.post(`https://musicart-80cn.onrender.com/register`, {
+      name: formValues.name,
+      mobile: formValues.mobile,
+      email: formValues.email,
+      password: formValues.password,
+    })
+    .then((response) => {
+      if (response.data.token) {
+        // Registration successful
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("user", formValues.email);
+        navigate('/');
+        showToastSuccess('Registration successful.');
+      } else if (response.data.error && response.data.error.includes("duplicate key")) {
+        // User already exists
+        showToastError('User with the same email already exists.');
+      } else {
+        // Other error
+        showToastError('Registration failed. Please try again later.');
+      }
+    })
+    .catch((error) => {
+      // API call failed
+      showToastError('Registration failed. Please try again later.');
+    });
   };
+  
   const isSmallScreen = useMediaQuery({ query: "(max-width: 600px)" });
 
   return (
     <>
+    <ToastContainer/>
     {isSmallScreen?(<div className={styles.mobContainer}>
         <div className={styles.mobCenterContainer}>
           <div className={styles.mobLogo}>
