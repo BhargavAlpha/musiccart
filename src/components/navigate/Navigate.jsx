@@ -41,6 +41,7 @@ const NavigationIcons = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("id");
     localStorage.removeItem("total"); 
+    localStorage.clear();
     handleIconChange('login')
     }
     return (

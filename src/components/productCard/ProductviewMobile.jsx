@@ -5,17 +5,21 @@ import axios from "axios";
 import heading from "../../assets/heading.png";
 import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
+import { ToastContainer, toast } from "react-toastify";
 import "./ProductCard";
 
 const ProductViewMobile = () => {
   const isDesktopOrLaptop = useMediaQuery({ query: "(min-width: 1224px)" });
   const navigate = useNavigate();
   const nbsp = String.fromCharCode(160);
-
+  const loggedIn = localStorage.getItem("user");
   const [data, setData] = useState({});
   const [about, setAbout] = useState([]);
   const [rate, setRate] = useState(0);
   const [count, setCount] = useState(0);
+  const showToastLoginMessage = () => {
+    toast.warning("Login to proceed to cart!", {});
+  };
 
   useEffect(() => {
     axios
@@ -37,10 +41,19 @@ const ProductViewMobile = () => {
           "check-color",
           JSON.stringify(response.data.color)
         );
-        localStorage.setItem("check-img",JSON.stringify(response.data.main_image));
-          localStorage.setItem("check-color",JSON.stringify(response.data.color));
-          localStorage.setItem("check-name",JSON.stringify(response.data.name));
-          localStorage.setItem("check-price",JSON.stringify(response.data.price));
+        localStorage.setItem(
+          "check-img",
+          JSON.stringify(response.data.main_image)
+        );
+        localStorage.setItem(
+          "check-color",
+          JSON.stringify(response.data.color)
+        );
+        localStorage.setItem("check-name", JSON.stringify(response.data.name));
+        localStorage.setItem(
+          "check-price",
+          JSON.stringify(response.data.price)
+        );
       })
       .catch((err) => {
         console.log(err);
@@ -167,6 +180,10 @@ const ProductViewMobile = () => {
               <button
                 className="add-to-cart"
                 onClick={() => {
+                  if (!loggedIn) {
+                    showToastLoginMessage();
+                    return;
+                  }
                   addCart();
                   navigate("/viewCart");
                 }}
@@ -176,6 +193,10 @@ const ProductViewMobile = () => {
               <button
                 className="buy-now"
                 onClick={() => {
+                  if (!loggedIn) {
+                    showToastLoginMessage();
+                    return;
+                  }
                   addCart();
                   navigate("/viewCart");
                 }}

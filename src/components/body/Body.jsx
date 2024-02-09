@@ -37,6 +37,8 @@ const Body = () => {
     sortOrder: "asc",
   });
 
+  
+
 
   useEffect(() => {
     try {
@@ -131,6 +133,7 @@ const Body = () => {
 
   return (
     <div>
+    <ToastContainer/>
     <Navbar/>
     <Promo/>
     <div className={styles.footer}>

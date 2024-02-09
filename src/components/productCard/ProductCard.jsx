@@ -5,11 +5,12 @@ import heading from '../../assets/heading.png'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../footer/Footer.jsx';
+import { ToastContainer, toast } from "react-toastify";
 
 
 const ProductCard = () => {
     const navigate = useNavigate();
-    
+    const loggedIn = localStorage.getItem("user");
     const [data, setData] = useState({})
     const [about,setAbout] = useState([]); 
     const[rate,setRate] = useState();
@@ -47,9 +48,14 @@ const ProductCard = () => {
         }
 
     }
+    const showToastLoginMessage = () => {
+        toast.warning("Login to proceed to cart!", {
+        });
+    }
 
     return (
         <div>
+            <ToastContainer/>
             <Navbar />
             <div className='view-product'>
                 <div className='heading'>
@@ -115,8 +121,18 @@ const ProductCard = () => {
                         <p><b>Available</b> - {data.available}</p>
                         <p><b>Brand</b> - {data.brand}</p>
                         <div className="buttons">
-                        <button className='add-to-cart' onClick={()=>{addCart();navigate('/viewCart')}}>Add to Cart</button>
-                        <button className='buy-now' onClick={()=>{addCart();navigate('/viewCart')}} >Buy Now</button>
+                        <button className='add-to-cart' onClick={()=>{
+                            if(!loggedIn){
+                                showToastLoginMessage();
+                                return;
+                            }
+                            addCart();navigate('/viewCart')}}>Add to Cart</button>
+                        <button className='buy-now' onClick={()=>{
+                             if(!loggedIn){
+                                showToastLoginMessage();
+                                return;
+                            }
+                            addCart();navigate('/viewCart')}} >Buy Now</button>
                         </div>
                     </div>
                 </div>

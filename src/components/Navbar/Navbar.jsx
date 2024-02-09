@@ -15,6 +15,7 @@ const Navbar = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("id");
     localStorage.removeItem("total");
+    localStorage.clear();
   };
 
   useEffect(() => {
