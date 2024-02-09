@@ -34,7 +34,13 @@ const Cart = () => {
             return quantities;
           }, {})
         );
+        if (response.data.length > 0) {
+          localStorage.setItem("check-img",JSON.stringify(response.data[0].main_image));
+          localStorage.setItem("check-color",JSON.stringify(response.data[0].color));
+          localStorage.setItem("check-name",JSON.stringify(response.data[0].name));
+        }
       })
+      
       .catch((err) => {
         console.log("error ..", err);
       });

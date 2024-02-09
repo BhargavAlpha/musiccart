@@ -13,16 +13,18 @@ const Checkout = (props) => {
 
     const isDesktopOrLaptop = useMediaQuery({query: '(min-width: 1224px)'});
     const navigate = useNavigate();
-    const [current, setCurrent] = useState(
-        localStorage.getItem("current")
-    );
+    const checkImg = JSON.parse(localStorage.getItem("check-img"));
+    const checkColor = JSON.parse(localStorage.getItem("check-color"));
+    const checkName = JSON.parse(localStorage.getItem("check-name"));
   const user = localStorage.getItem("user");
 
   const placeOrder =()=>{
     localStorage.removeItem('current');
+    localStorage.removeItem('check-img');
+    localStorage.removeItem('check-name');
+    localStorage.removeItem('check-color');
     axios.put(`https://musicart-80cn.onrender.com/musicProducts/clearCart/${user}`)
     .then((response) => { 
-      
         console.log(response);
        
     })
@@ -31,8 +33,8 @@ const Checkout = (props) => {
   }
   return (
     <div className="single-prod-cart" >
-      <div className="cart-section">
       {isDesktopOrLaptop ? <Navbar/>: <NavbarHeader/> }
+      <div className="cart-section">
         <div className="heading-section">
           <img src={heading} alt="Music Art" className="heading-img" />
           <p>
@@ -103,10 +105,10 @@ const Checkout = (props) => {
               </td>
               <td className="item-description-valur">
                 <div className="product-specs">
-                  <img src={'https://m.media-amazon.com/images/W/MEDIAX_849526-T3/images/I/51Q8DUDT2eL._SX679_.jpg'} alt="" />
+                  <img src={checkImg} alt="" />
 
                   
-                    <h3>{"Jbl"}</h3>
+                    <h3>{checkName}</h3>
                    
                     
                     <p><b>{"Availabe : yes"}</b></p>
@@ -155,23 +157,23 @@ const Checkout = (props) => {
                 <p className="item-description-head">   3.Review items and delivery </p>
 
                 <div className="product-specs" id="item-description-valur">
-                  <img src={'https://m.media-amazon.com/images/W/MEDIAX_849526-T3/images/I/51Q8DUDT2eL._SX679_.jpg'} alt="" />
+                  <img src={checkImg} alt="" />
 
                   
-                    <h3>{"Jbl"}</h3>
+                    <h3>{checkName}</h3>
                    
-                    <p>Colour : {"blue"}</p>
+                    <p>Colour : {checkColor}</p>
                     
                     <p>{"Yes"}</p>
                  
                  
                     <p>
-                      <b>Estimated delivary :</b>
+                      <b>Estimated delivery :</b>
                     </p>
                    
                     <p>
                       {" "}
-                      <b>Monday free standard delivary</b>{" "}
+                      <b>Monday free standard delivery</b>{" "}
                     </p>
                   
                 </div>
@@ -206,7 +208,7 @@ const Checkout = (props) => {
               <b>Order summary</b>
             </tr>
             <tr>
-              <td>Items:</td>
+              <td>Items cost:</td>
               <td>{parseInt(localStorage.getItem("total")) - 45}</td>
             </tr>
             <tr>

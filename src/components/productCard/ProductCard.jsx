@@ -26,12 +26,15 @@ const ProductCard = () => {
 
                 setRate( fetched_rate) ; 
                 setCount(fetched_count);
+                localStorage.setItem("check-img",JSON.stringify(response.data.main_image));
+          localStorage.setItem("check-color",JSON.stringify(response.data.color));
+          localStorage.setItem("check-name",JSON.stringify(response.data.name));
             })
-            .catch((err) => { console.log("error sita ..", err) })
+            .catch((err) => { console.log("error fetching product card ..", err) })
     }, [])
 
     const addCart = ()=>{
-        localStorage.setItem("current",JSON.stringify(data));
+        
         const user = localStorage.getItem("user");
         try {
             axios.put(`https://musicart-80cn.onrender.com/musicProducts/${data._id}/cart/${user}`)

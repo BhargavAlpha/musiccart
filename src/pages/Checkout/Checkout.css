@@ -50,6 +50,7 @@
           }
 }
 .back-button{
+    cursor: pointer;
     width: 10rem;
     background-color: #2E0052;
     height: 2rem;
